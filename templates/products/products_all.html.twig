@@ -1,0 +1,33 @@
+{% extends 'products/base_products.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('slider') }}
+{% endblock %}
+
+{% block body_products %}
+    <img src="{{ asset('img/left_arrow.png') }}" alt="Prev" class="prev" />
+    
+    <div class="slider">
+    {% for product in products %}
+        <div class="slide">
+        <a href="/products/{{product.id}}">
+          <div class="slide-copy">
+            <h2>{{ product.name }}</h2>
+            <p>
+              {{ product.description|slice(0, 40) }}...
+            </p>
+          </div>
+            <img class="img-fluid" src="{{ asset('uploads/thumbnails/' ~ product.img) }}" alt="" />
+        </a>
+        </div>
+      {% endfor %}
+    </div>
+
+    <img src="{{ asset('img/right_arrow.png') }}" alt="Next" class="next" />
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('slider') }}
+{% endblock %}

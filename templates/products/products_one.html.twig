@@ -1,0 +1,86 @@
+{% extends 'products/base_products.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('product_one_page') }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock %}
+
+{% block body_products %}
+    <!-- Product card -->
+    <div class="card" id="product_card">
+        <img class="card-img-top mx-auto" src="{{ asset('uploads/thumbnails/' ~ product.img) }}" alt="{{product.img}}">
+        <div class="card-body">
+            <h4 class="card-title">{{ product.name }}</h4>
+            <p class="card-text">
+                {{ product.description }}
+            </p>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card bg-primary h-100 text-white">
+                        <div class="card-body">
+                            <h4 class="card-title">Add to cart</h4>
+                            {{ form_start(form_addToCart) }}
+                            <div class="input-group">
+                                {{ form_row(form_addToCart.quantity) }}
+                                <div class="input-group-append">
+                                    {{ form_row(form_addToCart.buy) }}
+                                </div>
+                            </div>
+                            {{ form_end(form_addToCart) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-secondary h-100 text-black">
+                        <div class="card-body">
+                            <h4 class="card-title">Left In Our Store:</h4>
+                            {{ product.quantity }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-success h-100 text-black">
+                        <div class="card-body">
+                            <h4 class="card-title">Prise:</h4>
+                            {{ product.prise }} USD
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- opinions: -->
+   <hr>
+    {% if(product.rates|length != 0) %}
+        <p class="lead bg-white mt-3 mb-0">Our Costumers Opinions:</p>
+    {% endif %}
+    {% for rate in product.rates %}
+    <div class="card border-primary mb-0">
+        <div class="card-body">
+            <div class="rate">{{ rate.rate }}</div>
+            <p class="card-text">{{ rate.comment }}</p>
+        </div>
+        <div class="card-footer bg-secondary p-0">
+        <p class="lead">from: {{ rate.user.username|slice(0,3) }}*****{{ rate.user.username|slice(8) }}</p>
+        </div>
+    </div>
+    {% endfor %}
+
+    <hr>
+
+    <p class="lead bg-white mt-3 mb-0">Add Your Rate and Comment Below:</p>
+    {{ form(form_rate) }}
+    {% if is_granted('ROLE_ADMIN') %}
+    <hr>
+        <a class="btn btn-info" href="/admin/edit_product/{{ product.id }}">ADMIN EDIT</a>
+        <a class="btn btn-danger" href="/admin/remove_product/{{ product.id }}">ADMIN DELETE</a>
+    {% endif %}
+    
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('product_one_page') }}
+{% endblock %}

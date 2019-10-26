@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Products MyShop!{% endblock %}
+
+{% block body %}
+{% block body_products %}{% endblock %}
+{% endblock %}
+
+{% block sidebar %}
+    <ul class="list-group m-0">
+        <li class="list-group-item list-group-item-light"><a href="/products">Categories</a></li>
+        {% for category in categories %}
+            <li class="list-group-item list-group-item-light">
+                <a href="/products/category/{{category.name|lower|url_encode}}">{{category.name}}</a>
+                
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a class="btn btn-sm btn-info" href="/admin/edit_category/{{ category.id }}">EDIT</a>
+                    <a class="btn btn-sm btn-danger" href="/admin/remove_category/{{ category.id }}">REMOVE</a>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

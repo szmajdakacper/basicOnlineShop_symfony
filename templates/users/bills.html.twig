@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello {{ app.user.email }}{% endblock %}
+
+{% block body %}
+    {% for bill in bills %}
+        {% include('components/bill_view.html.twig') %}
+    {% endfor %}
+{% endblock %}

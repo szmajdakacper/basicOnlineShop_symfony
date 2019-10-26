@@ -1,0 +1,13 @@
+img {
+  width: 400px !important;
+  height: 400px;
+}
+.checked {
+  color: orange;
+}
+
+.form-opinion {
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgb(89, 49, 150);
+}

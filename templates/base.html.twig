@@ -1,12 +1,62 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Welcome!{% endblock %}</title>
+
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/pulse/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-/uQFqO50IaQu2rNJYKPpV7zwsWJtd6V4DGX4wMw1ATz4KPuZEV96qQ2heVAw2kr2"
+      crossorigin="anonymous"
+    />
+    {% block stylesheets %}
+      {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+  </head>
+  <body>
+    <!-- NAVI -->
+    {% include('components/navbar.html.twig') %}
+    <div id="page">
+      <div class="row no-gutters">
+        <!-- right sidebar -->
+        <div class="col-md-3">
+          {% block sidebar %}{% endblock %}
+        </div>
+
+        <!-- Content -->
+        <div class="col-md-7">
+          <!-- Alerts -->
+          {% include('components/alerts.html.twig') %}
+          <!-- body -->
+          {% block body %}{% endblock %}
+        </div>
+
+        <!-- left sidebar -->
+        <div class="col-md-2">
+          <!-- Cart -->
+          <a href="/my-cart">{% include('components/cart_view.html.twig') %}</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- loader -->
+    <div id="loader" style="display:none;" class="loader"></div>
+
+    <!-- JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>s
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+    {% block javascripts %}
+      {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+  </body>
 </html>

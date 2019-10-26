@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    {% set cart = app.session.get('cart') %}
+    {% if(forms != null) %}
+    
+    <fieldset class="border p-2">
+        <legend  class="w-auto">Your Cart</legend>
+
+        {% set i = 1 %}
+        {% for product_id, quantity in cart %}
+
+             <!-- MODAL TRIGGER -->
+            <button
+                class="btn btn-info btn-block mt-3"
+                data-toggle="modal"
+                data-target="#myModal{{i}}"
+            >
+                {{products[product_id].name}}
+            </button>
+
+            <!-- MODAL -->
+            <div class="modal" id="myModal{{i}}">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title">Product:</h5>
+                    <button class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        {{ form_start(forms[product_id]) }}
+                        {{ form_row(forms[product_id].product, {'value': products[product_id].name}) }}
+                        {{ form_row(forms[product_id].category, {'value': products[product_id].category.name}) }}
+                        {{ form_row(forms[product_id].quantity, {'value': quantity}) }}
+                        {{ form_row(forms[product_id].update, {'text': 'update'}) }}
+                        {{ form_end(forms[product_id]) }}
+                    <a class="btn btn-danger btn-block btn-sm mt-0" href="/remove-product/{{product_id}}">Remove Item</a>
+                    </div>
+                    <div class="modal-footer">
+                    <button class="btn btn-light" data-dismiss="modal">
+                        Close
+                    </button>
+                    </div>
+                </div>
+                </div>
+            </div>
+            {% set i = i + 1 %}
+        {% endfor %}
+        </fieldset>
+        <a class="btn btn-primary btn-block mt-3" href="/bill/buy">BUY</a>
+        <a class="btn btn-danger btn-block" href="{{ url('destroy_cart') }}">Remove Your Cart</a>
+    {% else %}
+        <p class="display-3 m-5 bg-light">Your Cart Is Empty...</p>
+    {% endif %}
+
+   
+
+      
+{% endblock %}

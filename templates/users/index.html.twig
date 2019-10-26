@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello {{ app.user.email }}{% endblock %}
+
+{% block body %}
+    {% if (app.user.address == null) %}
+        <a href="/user/address">Add Your Address</a>
+    {% else %}
+        <a href="/user/address">Update Your Address</a>
+    {% endif %}
+    <br>
+    <a href="/user/bills">Check All My Bills</a>
+{% endblock %}

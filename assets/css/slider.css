@@ -1,0 +1,53 @@
+.slider {
+  background-color: white;
+  width: 800px;
+  height: 400px;
+  position: relative;
+  overflow: hidden;
+  float: left;
+  padding: 3px;
+  border: #666 solid 2px;
+  border-radius: 5px;
+  margin-top: 70px;
+  text-align: center;
+}
+
+.slider img {
+  margin-top: 0;
+  margin-left: 200px;
+}
+
+.slide {
+  position: absolute;
+}
+
+.slide-copy {
+  width: 800px;
+  position: absolute;
+  bottom: 0px;
+  left: -5px;
+  padding-top: 20px;
+  padding-bottom: 0px;
+  padding-right: 0;
+  color: rgb(89, 49, 150);
+  background: rgba(249, 248, 252, 0.5);
+  margin-bottom: 0px;
+}
+
+.prev,
+.next {
+  width: 50px;
+  float: left;
+  margin-top: 130px;
+  cursor: pointer;
+  position: relative;
+  z-index: 100;
+}
+
+.prev {
+  margin-right: -50px;
+}
+
+.next {
+  margin-left: -50px;
+}

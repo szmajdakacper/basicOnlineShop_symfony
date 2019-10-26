@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello Admin!{% endblock %}
+
+{% block body %}
+    {% include('components/bill_view.html.twig') %}
+    Products:<br>
+    {% for transaction in bill.transactions %}
+        <hr>
+        {{transaction.productName}}: {{transaction.quantity}} x {{transaction.productPrise}}           
+        <hr>
+    {% endfor %}
+    <hr>
+{% endblock %}

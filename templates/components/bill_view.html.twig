@@ -1,0 +1,89 @@
+<div class="card text-center mt-3">
+    <div class="card-header">
+        {{bill.user.email}}, Status:
+        {% if(bill.status == null) %}
+            <span> unpaid</span>
+        {% else %}
+            <span> paid</span>
+        {% endif %}
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">{{ bill.sum }} USD</h4>
+
+        <!-- MODAL TRIGGER (PRODUCTS)-->
+        <button
+            class="btn btn-info btn-block mt-3"
+            data-toggle="modal"
+            data-target="#myModal_products{{bill.id}}"
+        >
+            Show Products
+        </button>
+
+        <!-- MODAL TRIGGER (ADDRESS)-->
+        <button
+            class="btn btn-info btn-block mt-3"
+            data-toggle="modal"
+            data-target="#myModal_address{{bill.id}}"
+        >
+            Show Address
+        </button>
+        {% if is_granted('ROLE_ADMIN') %}
+            <a class="btn btn-secondary btn-block mt-3" href="/admin/paid/{{ bill.id }}">Enter Up Payment</a>
+        {% endif %}
+    </div>
+    <div class="card-footer text-muted">
+       {{ bill.time|date("H:m:s m/d/Y") }}
+    </div>
+</div>
+
+<!-- MODAL (PRODUCTS) -->
+<div class="modal" id="myModal_products{{bill.id}}">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title">Products:</h5>
+        <button class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            {% for transaction in bill.transactions %}
+                <hr>
+                {% set prise = transaction.productPrise * transaction.quantity %}
+                {{transaction.productName}} : {{transaction.productPrise}} USD x {{transaction.quantity}} = {{ prise }} USD
+            {% endfor %}
+        </div>
+        <div class="modal-footer">
+        <button class="btn btn-light" data-dismiss="modal">
+            Close
+        </button>
+        </div>
+    </div>
+    </div>
+</div>
+
+<!-- MODAL (ADDRESS) -->
+<div class="modal" id="myModal_address{{bill.id}}">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title">Address:</h5>
+        <button class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            Address To Send:<br>
+            {{ bill.user.address.street }} <br> 
+            {{ bill.user.address.nrHouse }}
+            {% if(bill.user.address.nrApartment != null) %}
+                /{{ bill.user.address.nrApartment }} 
+            {% endif %}
+            <br>
+            {{ bill.user.address.city }} <br>
+            {{ bill.user.address.zipCode }} <br>
+        </div>
+        <div class="modal-footer">
+        <button class="btn btn-light" data-dismiss="modal">
+            Close
+        </button>
+        </div>
+    </div>
+    </div>
+</div>

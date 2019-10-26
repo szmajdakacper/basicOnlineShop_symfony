@@ -1,0 +1,15 @@
+body {
+  background-image: url('../img/bg_pattern.png');
+  background-repeat: repeat;
+}
+a {
+  text-decoration: none !important;
+}
+fieldset {
+  border: solid 3px black;
+  background-color: white !important;
+}
+
+.list-group-item {
+  background-color: rgba(249, 248, 252, 0.5);
+}

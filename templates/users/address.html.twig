@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello {{ app.user.email }}{% endblock %}
+
+{% block body %}
+    <h3 class="dispay-3 mt-3">Set Your Addres</h3>
+    <hr>
+    {{ form(form) }}
+{% endblock %}
